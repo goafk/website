@@ -1,6 +1,6 @@
 # goafk.dev
 
-The website for [afk](https://github.com/goafk/afk): static, dependency-free, built for Cloudflare Pages.
+The website for [afk](https://goafk.dev) — hub: [goafk/hub](https://github.com/goafk/hub), app: [goafk/app](https://github.com/goafk/app): static, dependency-free, built for Cloudflare Pages.
 
 ```
 src/pages/      index, docs, privacy, 404 (a leading <!--meta {...}--> sets title/description/path)
