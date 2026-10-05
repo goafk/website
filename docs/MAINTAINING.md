@@ -49,6 +49,8 @@ scripts/sync-install.sh ../afk     # copies ../afk/install.sh → static/install
 
 - **Screenshots** live in `static/assets/shots/<name>-<dark|light>.webp` (924×2000) plus `-sm` (462 wide).
   In pages use `{{shot <name> "alt text"}}`: it emits both themes with srcset.
+  Shots are cached for a year, so the build adds `?v=<content hash>` to every shot URL: replacing a
+  file under the same name is fine, visitors get the new one immediately.
 - **Store buttons**: in `src/pages/index.html` the Google Play / App Store buttons are
   `aria-disabled` "Soon" spans; swap them for links when the listings are live. The APK button points
   to `/docs/#android`.
