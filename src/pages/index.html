@@ -1,0 +1,303 @@
+<!--meta {"title": "afk — Away from keyboard, not away from control", "description": "afk puts Zed's agent panel on your phone. Every Claude and Codex thread on your Mac, live: approve, answer and steer them from anywhere. Free.", "path": "/"} -->
+{{> head}}
+<body>
+{{> header}}
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="label reveal">For Zed on macOS · Free</span>
+        <h1 class="display reveal" style="--d: 40ms">Away from keyboard,<br>not away from control.</h1>
+        <p class="lead reveal" style="--d: 80ms">afk puts Zed's agent panel on your phone. Every Claude and Codex thread on your Mac, live. Approve, answer and steer them from anywhere.</p>
+        <div class="cmd reveal" style="--d: 120ms">
+          <span class="cmd-prompt" aria-hidden="true">$</span>
+          <span class="cmd-text" id="install-cmd">curl -fsSL https://goafk.dev/install.sh | sh</span>
+          <button class="icon-btn copy" type="button" data-copy="#install-cmd" aria-label="Copy install command">
+            <svg class="i-copy"><use href="#i-copy"/></svg><svg class="i-check"><use href="#i-check"/></svg><span class="copy-tip">Copied</span>
+          </button>
+        </div>
+        <div class="stores reveal" style="--d: 160ms">
+          <a class="btn btn-ghost" href="/docs/#android" aria-label="Android APK download">
+            <svg><use href="#i-download"/></svg>Android APK
+          </a>
+          <span class="btn btn-ghost" aria-disabled="true">
+            <svg><use href="#i-play"/></svg>Google Play <span class="soon">Soon</span>
+          </span>
+          <span class="btn btn-ghost" aria-disabled="true">
+            <svg><use href="#i-apple"/></svg>App Store <span class="soon">Soon</span>
+          </span>
+        </div>
+        <div class="hero-meta reveal" style="--d: 200ms">
+          <span>Claude Agent &amp; Codex</span><span>No fork of Zed</span><span>Your code stays on your Mac</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" style="--d: 120ms">
+        <div class="phone phone-lg" data-hero>
+          <div class="phone-screen">
+            <div class="scene" data-scene="live">{{shot thread-live "afk showing a live Claude thread: plan, diff and a table, with two queued messages" eager}}</div>
+            <div class="scene is-hidden" data-scene="permission">{{shot thread-permission "afk showing a permission request with Always allow, Allow and Reject"}}</div>
+            <div class="scene is-hidden" data-scene="done">{{shot thread-done "afk showing a finished thread with quick replies"}}</div>
+            <div class="notif" data-notif aria-hidden="true">
+              <span class="notif-icon"><svg viewBox="0 0 654.6 587.2"><use href="#afk-mark"/></svg></span>
+              <span class="notif-app">afk · now</span>
+              <span class="notif-title" data-notif-title>pocket-ledger · Migrate payments</span>
+              <span class="notif-body" data-notif-body>Permission needed: npm test -- billing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section" aria-labelledby="problem-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">The gap</span>
+        <h2 class="h2 reveal" id="problem-title">Agents don't stop working when you leave. They stop to ask.</h2>
+      </div>
+      <div class="problem">
+        <div class="problem-row reveal"><span class="n">01</span><p>An agent needs a permission or an answer. <span>It waits.</span></p></div>
+        <div class="problem-row reveal"><span class="n">02</span><p>You're making coffee, in a meeting, on the train. <span>It keeps waiting.</span></p></div>
+        <div class="problem-row is-answer reveal"><span class="n">03</span><p>afk sends it to your phone. You answer. It carries on in Zed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">Features</span>
+        <h2 class="h2 reveal" id="features-title">Zed's agent panel, wherever you are.</h2>
+        <p class="lead reveal">Not a remote desktop and not a chat app. afk speaks the same protocol as Zed, so your phone sees exactly what Zed sees, and can do what Zed does.</p>
+      </div>
+
+      <article class="feature">
+        <div class="feature-copy">
+          <span class="label reveal">Live mirror</span>
+          <h3 class="h2 h2-sm reveal">Your threads, exactly as Zed shows them.</h3>
+          <p class="lead reveal">Same projects, same threads, same order as Zed's sidebar. Replies stream in as they're written.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Rendered like Zed:</strong> plans, diffs, tool calls, tables, code, Mermaid.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Two-way:</strong> type in Zed or on the phone; both update instantly.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>At a glance:</strong> spinners, unread dots and "needs you" warnings, even on collapsed projects.</span></li>
+          </ul>
+        </div>
+        <div class="stage stage-pair reveal">
+          <div class="phone phone-sm"><div class="phone-screen">{{shot sidebar "afk sidebar: projects with working, waiting and unread threads"}}</div></div>
+          <div class="phone phone-sm"><div class="phone-screen">{{shot thread-live "A live thread in afk"}}</div></div>
+        </div>
+      </article>
+
+      <article class="feature is-flipped">
+        <div class="feature-copy">
+          <span class="label reveal">Needs you</span>
+          <h3 class="h2 h2-sm reveal">When an agent asks, your phone knows.</h3>
+          <p class="lead reveal">A push when a thread needs permission, asks a question, or finishes. Answer in a couple of taps and the agent picks up in Zed.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Permissions:</strong> Allow, Always allow or Reject, with the exact command.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Questions:</strong> the same "Input requested" card as Zed, multiple choice included.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Trust a thread:</strong> approve everything in it with one switch.</span></li>
+          </ul>
+        </div>
+        <div class="stage stage-pair reveal">
+          <div class="phone phone-sm"><div class="phone-screen">{{shot thread-permission "A permission request in afk"}}</div></div>
+          <div class="phone phone-sm"><div class="phone-screen">{{shot thread-question "An agent question with multiple-choice options in afk"}}</div></div>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature-copy">
+          <span class="label reveal">Steer</span>
+          <h3 class="h2 h2-sm reveal">Everything you'd do at the desk.</h3>
+          <p class="lead reveal">Reply, queue the next step, switch the model. The composer is Zed's, made for thumbs.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>/ commands and @ files</strong> with fuzzy search; photos and screenshots too.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Message queue:</strong> send while it works; it goes out when the turn ends. Or send now.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Model, mode, effort, Fast:</strong> the same controls as Zed, in sync both ways.</span></li>
+          </ul>
+        </div>
+        <div class="stage stage-pair reveal">
+          <div class="phone phone-sm"><div class="phone-screen">{{shot slash "Slash command menu in the afk composer"}}</div></div>
+          <div class="phone phone-sm"><div class="phone-screen">{{shot model "Model picker in afk: Opus, Sonnet, Haiku"}}</div></div>
+        </div>
+      </article>
+
+      <article class="feature is-flipped">
+        <div class="feature-copy">
+          <span class="label reveal">Review</span>
+          <h3 class="h2 h2-sm reveal">See the diff. Ship it.</h3>
+          <p class="lead reveal">Check what the agent changed in each project, then commit and push, before you're back at your desk.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Per-file diffs</strong> with added and removed lines.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Commit and push</strong> in one step, or discard the files you pick.</span></li>
+          </ul>
+        </div>
+        <div class="stage reveal">
+          <div class="phone phone-md"><div class="phone-screen">{{shot changes "Review changes in afk: file list with a diff, commit and push"}}</div></div>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature-copy">
+          <span class="label reveal">Several Macs</span>
+          <h3 class="h2 h2-sm reveal">Personal and work. One switch.</h3>
+          <p class="lead reveal">Pair the phone with every Mac you code on. See one at a time, and know when the other one needs you.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Switcher</strong> at the top, with an "elsewhere" badge.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Notifications from all of them,</strong> labelled with the Mac's name.</span></li>
+          </ul>
+        </div>
+        <div class="stage reveal">
+          <div class="phone phone-md"><div class="phone-screen">{{shot macs "The afk Mac switcher with Work MacBook and Personal"}}</div></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Feature grid -->
+  <section class="section" aria-labelledby="more-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">And the details</span>
+        <h2 class="h2 reveal" id="more-title">Small things that add up.</h2>
+      </div>
+      <div class="grid reveal">
+        <div class="cell"><svg><use href="#i-inbox"/></svg><h3 class="h3">Needs you inbox</h3><p>Everything waiting on you, in one list, with a badge.</p></div>
+        <div class="cell"><svg><use href="#i-widgets"/></svg><h3 class="h3">Home-screen widgets</h3><p>Threads that need you, a counter, and one-tap new threads, on Android.</p></div>
+        <div class="cell"><svg><use href="#i-queue"/></svg><h3 class="h3">Quick replies</h3><p>"Continue", "Run the tests", "Commit it": one tap, instant feedback.</p></div>
+        <div class="cell"><svg><use href="#i-share"/></svg><h3 class="h3">Share into a thread</h3><p>Send a link, text or screenshot from any app straight to an agent.</p></div>
+        <div class="cell"><svg><use href="#i-search"/></svg><h3 class="h3">Find, rename, archive</h3><p>Search inside a thread; tidy your list with a swipe.</p></div>
+        <div class="cell"><svg><use href="#i-update"/></svg><h3 class="h3">Continue here</h3><p>Pick up a thread that isn't open in Zed. Zed shows the new turns later.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">How it works</span>
+        <h2 class="h2 reveal" id="how-title">Built on the protocol Zed already speaks.</h2>
+        <p class="lead reveal">Zed talks to its agents over the open Agent Client Protocol (ACP). afk sits quietly in that conversation. Nothing to fork, nothing to patch.</p>
+      </div>
+      <div class="flow reveal">
+        <div class="node"><span class="node-k">editor</span><span class="node-t">Zed</span><p>Unchanged. You keep using it exactly as before.</p></div>
+        <div class="link"><span>ACP</span></div>
+        <div class="node is-afk"><span class="node-k">afk relay</span><span class="node-t">Mirrors every message</span><p>Sits between Zed and each agent; can send prompts, answers and settings back.</p></div>
+        <div class="link"><span>local</span></div>
+        <div class="node"><span class="node-k">afk hub · your Mac</span><span class="node-t">Threads &amp; history</span><p>Reads Zed's sidebar, keeps history, sends notifications.</p></div>
+        <div class="link"><span>network</span></div>
+        <div class="node"><span class="node-k">afk app</span><span class="node-t">Your phone</span><p>Same projects, same threads, same order as Zed.</p></div>
+      </div>
+      <div class="facts">
+        <div class="fact reveal"><h3 class="h3">No fork of Zed</h3><p>No patched binary, no extension. Setup adds a few clearly marked lines to Zed's settings, backed up first.</p></div>
+        <div class="fact reveal" style="--d: 60ms"><h3 class="h3">If afk stops, Zed doesn't</h3><p>The relay passes everything through. With the hub down, Zed and your agents keep working normally.</p></div>
+        <div class="fact reveal" style="--d: 120ms"><h3 class="h3">Claude Agent, Codex, more</h3><p>Fully live with Claude Agent and Codex today; other ACP agents in Zed through a synced entry.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section" id="privacy" aria-labelledby="privacy-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">Private by design</span>
+        <h2 class="h2 reveal" id="privacy-title">Your Mac is the server. There's no afk cloud.</h2>
+      </div>
+      <div class="trust">
+        <div class="trust-card reveal"><svg><use href="#i-laptop"/></svg><h3 class="h3">Stays on your Mac</h3><p>Threads, history and code never leave your machine for an afk server, because there isn't one.</p></div>
+        <div class="trust-card reveal" style="--d: 60ms"><svg><use href="#i-key"/></svg><h3 class="h3">A key per phone</h3><p>Pair by scanning a one-time code. Each phone gets its own key; revoke any of them in one command.</p></div>
+        <div class="trust-card reveal" style="--d: 120ms"><svg><use href="#i-network"/></svg><h3 class="h3">Encrypted anywhere</h3><p>Away from home, afk connects through Tailscale over HTTPS. Nothing is exposed to the open internet.</p></div>
+        <div class="trust-card reveal" style="--d: 180ms"><svg><use href="#i-lock"/></svg><h3 class="h3">App lock</h3><p>Fingerprint or Face ID after the time away you choose.</p></div>
+      </div>
+      <div class="note reveal">
+        <svg><use href="#i-info"/></svg>
+        <p>One honest caveat: push notifications are delivered by Expo and Google (Firebase). A notification contains the project name, the thread title and a short snippet of the agent's message. <a href="/privacy/">Details</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section class="section" id="install" aria-labelledby="install-title">
+    <div class="wrap install">
+      <div>
+        <div class="section-head" style="margin-bottom: 32px">
+          <span class="label reveal">Install</span>
+          <h2 class="h2 reveal" id="install-title">One line on the Mac. One scan on the phone.</h2>
+        </div>
+        <ol class="steps">
+          <li class="reveal"><div><h3 class="h3">Run the installer</h3><p>It brings its own Node.js if needed, syncs Zed's agents, starts the hub and sets up Tailscale if you have it.</p></div></li>
+          <li class="reveal"><div><h3 class="h3">Scan the code</h3><p>Open the afk app and scan the QR code the installer prints. Your phone gets its own key.</p></div></li>
+          <li class="reveal"><div><h3 class="h3">Step away</h3><p>Restart Zed once if setup asks. That's it.</p></div></li>
+        </ol>
+        <div class="reqs reveal">
+          <span class="chip"><svg><use href="#i-laptop"/></svg>macOS</span>
+          <span class="chip"><svg><use href="#i-terminal"/></svg>Zed + Claude Agent or Codex</span>
+          <span class="chip"><svg><use href="#i-phone"/></svg>Android · iPhone soon</span>
+          <span class="chip"><svg><use href="#i-network"/></svg>Tailscale optional</span>
+        </div>
+      </div>
+      <div class="term reveal" style="--d: 80ms">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>Terminal</span></div>
+        <pre data-term aria-label="Example output of the afk installer"><span class="p">$</span> curl -fsSL https://goafk.dev/install.sh | sh
+<span class="dim">==&gt;</span> Installing afk into ~/.afk
+<span class="dim">==&gt;</span> Running setup
+
+Setting up afk
+
+  <span class="ok">✓</span> Zed found
+  <span class="ok">✓</span> Synced agents: Claude Agent, Codex
+  <span class="ok">✓</span> Hub running in the background
+  <span class="ok">✓</span> Reachable anywhere over Tailscale
+  <span class="ok">✓</span> Reachable on this Wi-Fi
+
+Scan with your phone's camera (or in the afk app → Add a Mac):
+<img class="qr" src="/assets/qr.svg" alt="" width="116" height="116">Pairing code K7MQ2-XR4TB · valid 15 min, one phone</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="label reveal">FAQ</span>
+        <h2 class="h2 reveal" id="faq-title">Questions, answered.</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>Is afk free?</summary><div class="a"><p>Yes. The Mac side and the app are free, and the code is MIT licensed.</p></div></details>
+        <details><summary>Which agents work with it?</summary><div class="a"><p>Claude Agent and Codex in Zed are fully live: every thread, both ways. Other agents that Zed runs over ACP work through a "(synced)" entry that setup adds to Zed.</p></div></details>
+        <details><summary>Do I need Tailscale?</summary><div class="a"><p>No. On the same Wi-Fi the phone talks to your Mac directly. Tailscale (free for personal use) lets it reach your Mac from anywhere, encrypted, without opening any ports. Setup configures it for you if it's installed.</p></div></details>
+        <details><summary>Is my code sent anywhere?</summary><div class="a"><p>No afk server exists: your threads and code stay on your Mac, and the phone reads them from it. The exception is push notifications, which travel through Expo and Google and carry the project name, thread title and a short snippet.</p></div></details>
+        <details><summary>What does it change in Zed?</summary><div class="a"><p>Setup adds a few lines to Zed's <code>settings.json</code> and <code>keymap.json</code>, between clear <code>afk:begin</code> / <code>afk:end</code> markers, after backing both files up. <code>afk uninstall</code> removes them.</p></div></details>
+        <details><summary>What if my Mac is asleep?</summary><div class="a"><p>The hub runs on your Mac, so it needs to be awake for live use. Starting a brand-new thread from the phone also needs Zed running, since afk opens it there for you.</p></div></details>
+        <details><summary>Can I use it with two Macs?</summary><div class="a"><p>Yes. Install afk on each and scan each Mac's code. The switcher at the top shows one Mac at a time and badges the other when it needs you.</p></div></details>
+        <details><summary>iPhone?</summary><div class="a"><p>The app is built cross-platform; the iPhone version is on its way to the App Store. Android works today.</p></div></details>
+        <details><summary>Windows or Linux?</summary><div class="a"><p>Not yet. The hub is macOS-only for now.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="wrap cta">
+      <svg class="cta-mark reveal" viewBox="0 0 654.6 587.2" aria-hidden="true"><use href="#afk-mark"/></svg>
+      <h2 class="h2 reveal">Step away. Keep them moving.</h2>
+      <div class="cmd reveal">
+        <span class="cmd-prompt" aria-hidden="true">$</span>
+        <span class="cmd-text" id="install-cmd-2">curl -fsSL https://goafk.dev/install.sh | sh</span>
+        <button class="icon-btn copy" type="button" data-copy="#install-cmd-2" aria-label="Copy install command">
+          <svg class="i-copy"><use href="#i-copy"/></svg><svg class="i-check"><use href="#i-check"/></svg><span class="copy-tip">Copied</span>
+        </button>
+      </div>
+      <p class="faint reveal" style="font-size: 14px">Then open <a href="/docs/">the docs</a> if you want the details.</p>
+    </div>
+  </section>
+
+</main>
+{{> footer}}

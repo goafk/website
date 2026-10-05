@@ -1,0 +1,91 @@
+<!--meta {"title": "Docs · afk", "description": "Install afk on your Mac, pair your phone, use several Macs, and the afk command reference.", "path": "/docs/"} -->
+{{> head}}
+<body>
+{{> header}}
+<main id="main">
+  <div class="wrap">
+    <div class="page-head">
+      <span class="label">Docs</span>
+      <h1 class="h2">Get afk running.</h1>
+      <p class="lead">Five minutes, start to finish. Everything below is also in <code>afk help</code>.</p>
+      <nav class="toc" aria-label="On this page">
+        <a class="chip" href="#requirements">Requirements</a>
+        <a class="chip" href="#install">Install</a>
+        <a class="chip" href="#android">The app</a>
+        <a class="chip" href="#pair">Pair</a>
+        <a class="chip" href="#macs">Several Macs</a>
+        <a class="chip" href="#commands">Commands</a>
+        <a class="chip" href="#troubleshooting">Troubleshooting</a>
+        <a class="chip" href="#uninstall">Uninstall</a>
+      </nav>
+    </div>
+
+    <article class="prose">
+      <h2 id="requirements">Requirements</h2>
+      <ul>
+        <li><strong>macOS</strong> with <a href="https://zed.dev">Zed</a>, and Claude Agent and/or Codex added in Zed's Agent panel.</li>
+        <li><strong>An Android phone.</strong> The iPhone app is coming to the App Store.</li>
+        <li><strong>Optional: Tailscale</strong> on the Mac and the phone, to reach your Mac from anywhere. Without it, afk works on the same Wi-Fi.</li>
+      </ul>
+      <p>You don't need Node.js installed: the installer downloads its own copy if yours is missing or older than 22.18.</p>
+
+      <h2 id="install">Install on the Mac</h2>
+<pre><code>curl -fsSL https://goafk.dev/install.sh | sh</code></pre>
+      <p>The installer only touches your home folder. It:</p>
+      <ol>
+        <li>uses your Node.js 22, or downloads a checksum-verified private copy into <code>~/.afk/runtime</code>;</li>
+        <li>installs afk into <code>~/.afk</code> and adds the <code>afk</code> command to <code>~/.local/bin</code>;</li>
+        <li>runs <code>afk setup</code>, which syncs Zed's agents, starts the hub in the background, makes the Mac reachable (Tailscale on port 8443 and/or your Wi-Fi), checks everything, and prints a pairing QR code.</li>
+      </ol>
+      <p>If setup says so, quit and reopen Zed once so running agents start syncing. Want to read the script first? It's at <a href="/install.sh">/install.sh</a>.</p>
+
+      <h2 id="android">Get the app</h2>
+      <p>afk for Android is available as an APK while the Google Play listing is on its way; the App Store version follows. Download links appear here as soon as each is live.</p>
+
+      <h2 id="pair">Pair your phone</h2>
+      <ol>
+        <li>Open afk. On first launch it shows <strong>Connect your Mac</strong>.</li>
+        <li>Scan the QR code from <code>afk setup</code>, or run <code>afk pair</code> for a new one. You can also scan it with the phone's camera, or copy the link and tap <strong>Paste pairing link</strong>.</li>
+        <li>That's it: your projects and threads appear.</li>
+      </ol>
+      <p>Codes work once and expire after 15 minutes. Each phone gets its own key; the Mac's master key never leaves the Mac.</p>
+
+      <h2 id="macs">Several Macs</h2>
+      <p>Install afk on each Mac, then in the app tap the Mac's name at the top of the sidebar → <strong>Add a Mac</strong> and scan that Mac's code. The switcher shows one Mac at a time and badges the others when they need you. Rename Macs from the same sheet.</p>
+
+      <h2 id="commands">Commands</h2>
+      <table>
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>afk setup</code></td><td>Sync Zed's agents, start the hub, check everything, show a pairing code. Safe to re-run.</td></tr>
+          <tr><td><code>afk pair</code></td><td>A new pairing code for another phone.</td></tr>
+          <tr><td><code>afk devices</code></td><td>Paired phones and when each was last seen.</td></tr>
+          <tr><td><code>afk devices revoke &lt;id&gt;</code></td><td>Cut one phone off.</td></tr>
+          <tr><td><code>afk status</code></td><td>Hub health and connected agents.</td></tr>
+          <tr><td><code>afk threads</code></td><td>List synced threads.</td></tr>
+          <tr><td><code>afk send &lt;thread&gt; "…"</code></td><td>Send a message into a thread (it shows in Zed).</td></tr>
+          <tr><td><code>afk new &lt;project&gt; claude "…"</code></td><td>Start a new thread in Zed.</td></tr>
+          <tr><td><code>afk watch</code></td><td>Stream live events.</td></tr>
+          <tr><td><code>afk permissions</code></td><td>One-time macOS permission so afk can open new threads in Zed.</td></tr>
+          <tr><td><code>afk uninstall</code></td><td>Remove everything setup added.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <h3>The app can't reach my Mac</h3>
+      <p>Make sure the Mac is awake. At home, the phone must be on the same Wi-Fi; away, Tailscale must be on for both. Run <code>afk setup</code> again: it reports which addresses work.</p>
+      <h3>A thread shows as read-only</h3>
+      <p>Its agent process isn't running. Open the thread in Zed, or tap <strong>Continue here</strong> in the app to load it into a running agent.</p>
+      <h3>"Tailscale Serve could not start"</h3>
+      <p>Tailscale asks you once to enable HTTPS / Serve for your tailnet. Follow the link setup prints, then run setup again.</p>
+      <h3>New threads from the phone don't open</h3>
+      <p>Zed must be running, and afk needs a one-time macOS permission: run <code>afk permissions</code>.</p>
+
+      <h2 id="uninstall">Uninstall</h2>
+<pre><code>afk uninstall          # removes the Zed settings blocks and the background service
+rm -rf ~/.afk ~/.local/bin/afk</code></pre>
+      <p>Your Zed settings were backed up to <code>~/.afk/backups</code> before every change.</p>
+    </article>
+  </div>
+</main>
+{{> footer}}

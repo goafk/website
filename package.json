@@ -1,0 +1,11 @@
+{
+  "name": "goafk-website",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && cd dist && python3 -m http.server 8788",
+    "deploy": "node build.mjs && npx wrangler pages deploy dist --project-name goafk"
+  }
+}

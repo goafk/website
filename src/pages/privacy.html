@@ -1,0 +1,34 @@
+<!--meta {"title": "Privacy · afk", "description": "What afk stores, where it lives, and what passes through third parties.", "path": "/privacy/"} -->
+{{> head}}
+<body>
+{{> header}}
+<main id="main">
+  <div class="wrap">
+    <div class="page-head">
+      <span class="label">Privacy</span>
+      <h1 class="h2">Your Mac is the server.</h1>
+      <p class="lead">afk has no accounts and no backend of its own. Here is exactly what it stores and where data goes.</p>
+    </div>
+    <article class="prose">
+      <h2>On your Mac</h2>
+      <p>The afk hub runs on your Mac and keeps everything in <code>~/.afk</code>: thread history, settings, the keys of the phones you paired (stored hashed), and logs. Nothing in it is sent to us; there is no "us" server to send it to.</p>
+
+      <h2>Between your Mac and your phone</h2>
+      <p>The app talks to your Mac directly, either over your local Wi-Fi or through <a href="https://tailscale.com">Tailscale</a>. Over Tailscale the connection is HTTPS and only reachable from your own devices. On Wi-Fi it's plain HTTP on your local network, protected by your phone's key.</p>
+
+      <h2>Push notifications</h2>
+      <p>Notifications are the one thing that leaves your devices through third parties. The hub sends them through <strong>Expo's push service</strong>, which delivers them via <strong>Google Firebase Cloud Messaging</strong> (Android) or Apple (iPhone). Each notification contains the project name, the thread title and a short snippet (up to about 180 characters) of the agent's message or question. You can turn notification types off in the app's settings.</p>
+
+      <h2>The app</h2>
+      <p>The app has no analytics and no ads. It stores the Macs you paired and your preferences on the phone. App updates are downloaded from Expo.</p>
+
+      <h2>This website</h2>
+      <p>goafk.dev sets no cookies and loads no third-party scripts or fonts. It's served by Cloudflare, which processes standard request data (like IP addresses) to deliver it.</p>
+
+      <h2>Questions</h2>
+      <p>Open an issue on <a href="https://github.com/goafk">GitHub</a>.</p>
+      <p class="faint" style="margin-top: 32px; font-size: 14px">Last updated 5 October 2026.</p>
+    </article>
+  </div>
+</main>
+{{> footer}}
