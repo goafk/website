@@ -6,6 +6,34 @@
   var staticMode = /[?&]static\b/.test(location.search);
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || staticMode;
 
+  // Analytics (Umami): events queue until the script has loaded; it only reports on goafk.dev.
+  var pending = [];
+  var copyingByButton = false;
+  function track(name, data) {
+    if (window.umami && typeof window.umami.track === "function") {
+      try {
+        window.umami.track(name, data);
+      } catch (e) {}
+    } else if (pending.length < 50) pending.push([name, data]);
+  }
+  (function flush(tries) {
+    if (window.umami && typeof window.umami.track === "function") {
+      var q = pending;
+      pending = [];
+      q.forEach(function (e) {
+        track(e[0], e[1]);
+      });
+    } else if (tries < 40) setTimeout(flush, 500, tries + 1);
+  })(0);
+  // Where on the page something happened: header, footer, or the enclosing section.
+  function region(el) {
+    if (el.closest("header")) return "header";
+    if (el.closest("footer")) return "footer";
+    var sec = el.closest("section");
+    if (!sec) return "page";
+    return sec.id || (sec.classList.contains("hero") ? "hero" : "page");
+  }
+
   // Notifications drop in from above and leave with a small lift (softer than the entry).
   function notifIn(n) {
     clearTimeout(n._t);
@@ -62,6 +90,7 @@
           if (next === "system") localStorage.removeItem("afk-theme");
           else localStorage.setItem("afk-theme", next);
         } catch (e) {}
+        track("theme-change", { theme: next });
         // One quick cross-fade of the whole page where View Transitions exist.
         if (document.startViewTransition && !reduce)
           document.startViewTransition(function () {
@@ -76,6 +105,8 @@
         var el = document.querySelector(btn.getAttribute("data-copy"));
         var text = el ? el.textContent.trim() : "";
         var done = function () {
+          var where = btn.getAttribute("data-copy") === "#install-cmd" ? "hero" : region(btn);
+          track("install-copy", { location: where, page: location.pathname });
           btn.classList.add("is-copied");
           clearTimeout(btn._t);
           btn._t = setTimeout(function () {
@@ -85,6 +116,10 @@
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
         else fallback();
         function fallback() {
+          copyingByButton = true; // not a "manual" copy
+          setTimeout(function () {
+            copyingByButton = false;
+          }, 50);
           var range = document.createRange();
           range.selectNodeContents(el);
           var sel = window.getSelection();
@@ -144,6 +179,7 @@
     terminal();
     syncDemo();
     notifyForm();
+    analytics();
   });
 
   // Live sync demo: one script drives the editor and the phone together; visitors can take over.
@@ -388,11 +424,16 @@
       var b = e.target.closest("button");
       if (!b || !root.contains(b)) return;
       var from = b.closest(".phone") ? "ph" : "ed";
+      var side = from === "ph" ? "phone" : "mac";
       if (b.dataset.act) {
-        if (pendingAllow) pendingAllow({ act: b.dataset.act, from: from });
+        if (pendingAllow) {
+          track("demo-allow", { action: b.dataset.act, side: side });
+          pendingAllow({ act: b.dataset.act, from: from });
+        }
         return;
       }
       if (b.hasAttribute("data-model")) {
+        track("demo-model", { side: side });
         takeOver();
         var g = gen;
         travel(from === "ph" ? "mac" : "phone").then(function () {
@@ -402,6 +443,7 @@
         return;
       }
       if (b.dataset.quick) {
+        track("demo-quick-reply", { reply: b.dataset.quick });
         takeOver();
         var g2 = gen;
         var text = b.dataset.quick;
@@ -459,6 +501,7 @@
       e.preventDefault();
       var email = form.email.value.trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        track("notify-submit", { result: "invalid-client" });
         set("That email doesn't look right.");
         form.email.focus();
         return;
@@ -483,6 +526,7 @@
           });
         })
         .then(function (r) {
+          track("notify-submit", { result: r.status === 200 ? "ok" : r.body.error || "error", platforms: platforms.join("+") || "none" });
           if (r.status === 200) {
             set("You're on the list. One email when it ships.", true);
             form.email.value = "";
@@ -492,12 +536,82 @@
           else set("Something went wrong. Please try again.");
         })
         .catch(function () {
+          track("notify-submit", { result: "network" });
           set("Couldn't reach the server. Please try again.");
         })
         .then(function () {
           btn.classList.remove("is-loading");
         });
     });
+  }
+
+  // Funnel + intent events (names show as-is in the Umami dashboard).
+  function analytics() {
+    // Links: classify by destination; record where on the page they were clicked.
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest("a[href]");
+      if (!a) return;
+      var where = region(a);
+      if (a.hasAttribute("data-store")) return track("store-click", { store: a.getAttribute("data-store"), location: where });
+      var url;
+      try {
+        url = new URL(a.getAttribute("href"), location.href);
+      } catch (err) {
+        return;
+      }
+      if (url.host === "github.com") return track("github-click", { location: where });
+      if (url.host !== location.host) return track("outbound", { host: url.host, location: where });
+      if (url.pathname === "/install.sh") return track("installsh-view", { location: where });
+      if (url.pathname.indexOf("/docs") === 0 && location.pathname.indexOf("/docs") !== 0)
+        return track("docs-click", { section: url.hash.slice(1) || "top", location: where });
+      if (url.hash && (url.pathname === location.pathname || url.pathname === "/")) return track("nav-click", { target: url.hash.slice(1), location: where });
+    });
+
+    // Someone selected and copied the install command by hand (not via the copy button).
+    document.addEventListener("copy", function () {
+      var sel = String(window.getSelection ? window.getSelection() : "");
+      if (!copyingByButton && sel.indexOf("goafk.dev/install.sh") > -1) track("install-manual-copy", { page: location.pathname });
+    });
+
+    // How far people get: each key section, once, when 35% of it is on screen.
+    if ("IntersectionObserver" in window) {
+      var seen = {};
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (en) {
+            var id = en.target.id;
+            // Counts once 35% of the section is visible, or it fills half the screen (tall sections).
+            var enough = en.intersectionRatio >= 0.35 || en.intersectionRect.height >= window.innerHeight * 0.5;
+            if (en.isIntersecting && enough && !seen[id]) {
+              seen[id] = true;
+              track("section-view", { section: id });
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { threshold: [0, 0.1, 0.2, 0.35, 0.5] },
+      );
+      ["sync", "features", "how", "privacy", "install", "notify", "faq"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    }
+
+    // Which questions people actually have.
+    document.querySelectorAll(".faq details").forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        if (d.open) track("faq-open", { question: d.querySelector("summary").textContent.trim().slice(0, 60) });
+      });
+    });
+
+    // Broken links: which missing paths people hit.
+    if (document.querySelector(".notfound")) {
+      var ref = "direct";
+      try {
+        if (document.referrer) ref = new URL(document.referrer).host;
+      } catch (err) {}
+      track("404", { path: location.pathname.slice(0, 120), referrer: ref });
+    }
   }
 
   // Hero: the agent works → asks for permission (notification) → you allow → it finishes.
@@ -552,6 +666,7 @@
       timer = setTimeout(tick, steps[i][0]);
     };
     hotspot.addEventListener("click", function () {
+      track("hero-allow");
       clearTimeout(timer);
       hotspot.classList.add("is-pressed");
       setTimeout(function () {

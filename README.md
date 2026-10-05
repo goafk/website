@@ -77,3 +77,31 @@ Local test with the function: `node build.mjs && npx wrangler pages dev dist --k
 
 Cloudflare → Workers & Pages → goafk → Metrics → **Web Analytics → Enable**. It's cookieless; the CSP
 in `static/_headers` already allows its script, and the privacy page mentions it.
+
+## Analytics events (Umami)
+
+Umami (`umami.boldbytes.co.uk`, cookieless) records page views and referrers automatically, only on
+`goafk.dev` (`data-domains`). Tag shared links with `?utm_source=x&utm_campaign=launch` to compare
+channels. Custom events, all in `static/assets/js/site.js`:
+
+| Event | Data | Answers |
+| --- | --- | --- |
+| `section-view` | `section`: sync, features, how, privacy, install, notify, faq | How far people scroll; where they drop off |
+| `install-copy` | `location` (hero / install / cta / docs), `page` | The main conversion: copied the install command |
+| `install-manual-copy` | `page` | Copied the command by selecting it instead |
+| `installsh-view` | `location` | Wanted to read the script first (trust signal) |
+| `store-click` | `store` (apk / google-play / app-store), `location` | Demand per platform |
+| `notify-submit` | `result` (ok / email / rate / not_configured / invalid-client / network / error), `platforms` | Sign-up conversion and failures |
+| `hero-allow` | — | Someone tried the hero demo |
+| `demo-allow` | `action` (allow / always / reject), `side` (phone / mac) | Sync demo engagement |
+| `demo-quick-reply` | `reply` | — |
+| `demo-model` | `side` | — |
+| `faq-open` | `question` | The objections people actually have |
+| `nav-click` | `target`, `location` | What people look for first |
+| `docs-click` | `section`, `location` | — |
+| `github-click` | `location` | Interest in the code |
+| `outbound` | `host`, `location` | Clicks to zed.dev, tailscale.com, … |
+| `theme-change` | `theme` | — |
+| `404` | `path`, `referrer` host | Broken links to fix |
+
+Suggested Umami funnel: page view → `section-view: install` → `install-copy`.
