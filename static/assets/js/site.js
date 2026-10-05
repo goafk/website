@@ -2,8 +2,28 @@
 (function () {
   "use strict";
   var root = document.documentElement;
-  // ?static shows the page with no motion (screenshots, QA).
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]static\b/.test(location.search);
+  // ?static shows the page fully revealed with no motion (screenshots, QA).
+  var staticMode = /[?&]static\b/.test(location.search);
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || staticMode;
+
+  // Notifications drop in from above and leave with a small lift (softer than the entry).
+  function notifIn(n) {
+    clearTimeout(n._t);
+    n.classList.remove("is-out");
+    n.classList.add("is-in");
+  }
+  function notifOut(n) {
+    if (!n.classList.contains("is-in")) return;
+    n.classList.add("is-out");
+    n.classList.remove("is-in");
+    clearTimeout(n._t);
+    n._t = setTimeout(function () {
+      n.style.transition = "none"; // reset to the drop-in start without animating back
+      n.classList.remove("is-out");
+      void n.offsetWidth;
+      n.style.transition = "";
+    }, 200);
+  }
 
   // Theme: system → light → dark → system. Stored per visitor; storage may be unavailable.
   function readPref() {
@@ -42,7 +62,12 @@
           if (next === "system") localStorage.removeItem("afk-theme");
           else localStorage.setItem("afk-theme", next);
         } catch (e) {}
-        applyPref(next);
+        // One quick cross-fade of the whole page where View Transitions exist.
+        if (document.startViewTransition && !reduce)
+          document.startViewTransition(function () {
+            applyPref(next);
+          });
+        else applyPref(next);
       });
 
     // Copy buttons.
@@ -83,18 +108,29 @@
 
     // Reveal on scroll.
     var items = document.querySelectorAll(".reveal");
-    if (reduce || !("IntersectionObserver" in window)) {
+    if (staticMode || !("IntersectionObserver" in window)) {
       items.forEach(function (el) {
         el.classList.add("is-in");
       });
     } else {
       var io = new IntersectionObserver(
         function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) {
-              e.target.classList.add("is-in");
-              io.unobserve(e.target);
-            }
+          // Things that arrive together stagger in reading order (55ms apart, capped), unless a
+          // delay is set by hand.
+          var shown = entries
+            .filter(function (e) {
+              return e.isIntersecting;
+            })
+            .map(function (e) {
+              return e.target;
+            })
+            .sort(function (a, b) {
+              return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+            });
+          shown.forEach(function (el, i) {
+            if (!el.style.getPropertyValue("--d")) el.style.setProperty("--d", Math.min(i * 55, 330) + "ms");
+            el.classList.add("is-in");
+            io.unobserve(el);
           });
         },
         { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
@@ -230,7 +266,7 @@
       lists.ph.innerHTML = "";
       typed.textContent = "";
       send.classList.remove("is-ready");
-      notif.classList.remove("is-in");
+      notifOut(notif);
       add("m-user", "Add a dark mode toggle to settings. Follow the system by default.");
       add("m-agent", "Added an Appearance row with System, Light and Dark.");
       tool("Edit src/theme/ThemeProvider.tsx", true);
@@ -276,7 +312,7 @@
         var t = tool("npm test -- theme", false);
         var p = perm();
         status("wait");
-        notif.classList.add("is-in");
+        notifIn(notif);
         say("It needs permission. Your phone gets a notification.");
         var allowBtn = p[1].querySelector('[data-act="allow"]');
         allowBtn.classList.add("is-hint");
@@ -295,7 +331,7 @@
           btn.classList.add("is-pressed");
           await sleep(160, g);
         }
-        notif.classList.remove("is-in");
+        notifOut(notif);
         say(choice.from === "ed" ? "Answered on the Mac. The phone updates too." : "Answered on the phone. Zed carries on.");
         await travel(choice.from === "ed" ? "phone" : "mac");
         var verdict = choice.act === "reject" ? "Rejected" : choice.act === "always" ? "Always allowed" : "Allowed";
@@ -373,7 +409,7 @@
         setTimeout(function () {
           b.classList.remove("is-pressed");
         }, 160);
-        notif.classList.remove("is-in");
+        notifOut(notif);
         say("Sent from the phone. It appears in Zed as your message.");
         sendFromPhone(text, g2)
           .then(function () {
@@ -490,10 +526,10 @@
     var note = function (t, b) {
       title.textContent = t;
       body.textContent = b;
-      notif.classList.add("is-in");
+      notifIn(notif);
     };
     var hide = function () {
-      notif.classList.remove("is-in");
+      notifOut(notif);
     };
     var ALLOWED = 4; // index of the step that shows the finished thread
     var steps = [
