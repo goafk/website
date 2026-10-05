@@ -497,6 +497,7 @@
     var set = function (text, ok) {
       status.textContent = text;
       status.classList.toggle("is-ok", !!ok);
+      form.classList.toggle("is-done", !!ok);
     };
     form.addEventListener("submit", function (e) {
       e.preventDefault();

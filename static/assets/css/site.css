@@ -2817,3 +2817,151 @@ a.chip:active {
     margin-top: 0;
   }
 }
+
+/* ---------- notify me: one card ---------- */
+.notify-card {
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+  border-radius: var(--r-icon);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+}
+@media (min-width: 640px) {
+  .notify-card {
+    padding: 28px;
+  }
+}
+.notify-app {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.notify-app b {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.notify-app small {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.notify-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  background: var(--n-950);
+  color: var(--n-0);
+}
+:root[data-theme="dark"] .notify-icon {
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.notify-icon svg {
+  width: 26px;
+  height: 24px;
+}
+.notify-fields {
+  display: grid;
+  gap: 10px;
+}
+.notify-label {
+  padding: 0;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.notify-card .plats {
+  display: block;
+  margin-bottom: 8px;
+}
+.notify-card .plats legend {
+  margin-bottom: 10px;
+}
+.plat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.notify-card .plat span {
+  width: 100%;
+  height: 44px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 12px 0 14px;
+  border-radius: var(--r-md);
+  font-size: 15px;
+}
+.plat-tick {
+  margin-left: auto;
+  opacity: 0;
+  scale: 0.6;
+  transition: opacity var(--t-fast) var(--ease), scale var(--t-fast) var(--ease);
+}
+.plat input:checked + span .plat-tick {
+  opacity: 1;
+  scale: 1;
+}
+.notify-card .plat input:checked + span {
+  border-color: var(--text);
+  background: var(--sunken);
+}
+.notify-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1 var(--font);
+  letter-spacing: -0.01em;
+  outline: none;
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.notify-input::placeholder {
+  color: var(--text-3);
+}
+.notify-input:focus {
+  border-color: var(--text);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.notify-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+.notify-btn:active {
+  scale: 0.98;
+}
+.notify-card .notify-status {
+  min-height: 0;
+  margin: -6px 0 0;
+}
+.notify-card .notify-status:empty {
+  display: none;
+}
+.notify-card .notify-fine {
+  margin: 0;
+  line-height: 1.5;
+}
+/* Signed up: the form gives way to a clear confirmation. */
+.notify-card.is-done .notify-fields {
+  display: none;
+}
+.notify-card.is-done .notify-status {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: var(--sunken);
+  font-size: 15px;
+}

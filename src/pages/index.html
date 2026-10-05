@@ -414,20 +414,26 @@ Scan with your phone's camera (or in the afk app → Add a Mac):
         <h2 class="h2 reveal" id="notify-title">Coming to the App Store and Google Play.</h2>
         <p class="lead reveal">Get one email when afk lands in the stores. No newsletter, no spam.</p>
       </div>
-      <form class="notify-form reveal" data-notify novalidate>
-        <div class="field">
-          <label class="sr-only" for="notify-email">Email</label>
-          <input id="notify-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-          <button class="btn btn-primary" type="submit">Notify me</button>
+      <form class="notify-card reveal" data-notify novalidate>
+        <div class="notify-app">
+          <span class="notify-icon" aria-hidden="true"><svg viewBox="0 0 654.6 587.2"><use href="#afk-mark"/></svg></span>
+          <span><b>afk</b><small>iPhone and Android · Coming soon</small></span>
         </div>
-        <fieldset class="plats">
-          <legend class="sr-only">Which phone?</legend>
-          <label class="plat"><input type="checkbox" name="platforms" value="ios" checked><span><svg><use href="#i-apple"/></svg>iPhone</span></label>
-          <label class="plat"><input type="checkbox" name="platforms" value="android" checked><span><svg><use href="#i-play"/></svg>Android</span></label>
-        </fieldset>
+        <div class="notify-fields">
+          <fieldset class="plats">
+            <legend class="notify-label">Which phone?</legend>
+            <div class="plat-grid">
+            <label class="plat"><input type="checkbox" name="platforms" value="ios" checked><span><svg><use href="#i-apple"/></svg>iPhone<svg class="plat-tick"><use href="#i-check"/></svg></span></label>
+            <label class="plat"><input type="checkbox" name="platforms" value="android" checked><span><svg><use href="#i-play"/></svg>Android<svg class="plat-tick"><use href="#i-check"/></svg></span></label>
+            </div>
+          </fieldset>
+          <label class="notify-label" for="notify-email">Email</label>
+          <input class="notify-input" id="notify-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="btn btn-primary notify-btn" type="submit">Notify me</button>
+        </div>
         <div class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
         <p class="notify-status" data-notify-status role="status" aria-live="polite"></p>
-        <p class="notify-fine">We keep your email only to send that one message. <a href="/privacy/#launch-emails">Privacy</a>.</p>
+        <p class="notify-fine">One email when it ships. We keep your address only for that. <a href="/privacy/#launch-emails">Privacy</a></p>
       </form>
     </div>
   </section>
