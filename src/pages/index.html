@@ -99,11 +99,15 @@
                   <button type="button" class="qchip" data-quick="Run the tests">Run the tests</button>
                   <button type="button" class="qchip" data-quick="Continue">Continue</button>
                 </div>
+                <div class="app-card">
                 <div class="app-input" data-input><span data-typed></span><span class="ph-caret"></span><span class="ph-placeholder">Message Claude Agent</span></div>
                 <div class="comp-row">
-                  <button class="model" type="button" data-model aria-label="Model">Opus 5.5 <svg viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <span class="app-plus" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3.5v9M3.5 8h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                  <button class="model" type="button" data-model aria-label="Thread settings">Opus 5.5 <span class="model-sub">· Default</span><svg viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <span class="app-spacer"></span>
                   <span class="send-sq" data-send aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 12.5v-9M4.5 7 8 3.5 11.5 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 </div>
+              </div>
               </div>
             </div>
             <div class="notif" data-sync-notif aria-hidden="true">
@@ -181,20 +185,50 @@
         <div class="feature-copy">
           <span class="label reveal">Steer</span>
           <h3 class="h2 h2-sm reveal">Everything you'd do at the desk.</h3>
-          <p class="lead reveal">Reply, queue the next step, switch the model. The composer is Zed's, made for thumbs.</p>
+          <p class="lead reveal">Reply, queue the next step, switch the model. Zed's composer, rebuilt for thumbs.</p>
           <ul class="ticks reveal">
             <li><svg><use href="#i-tick"/></svg><span><strong>/ commands and @ files</strong> with fuzzy search; photos and screenshots too.</span></li>
             <li><svg><use href="#i-tick"/></svg><span><strong>Message queue:</strong> send while it works; it goes out when the turn ends. Or send now.</span></li>
-            <li><svg><use href="#i-tick"/></svg><span><strong>Model, mode, effort, Fast:</strong> the same controls as Zed, in sync both ways.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>One pill for model, mode, effort and Fast:</strong> tap it for a single sheet with big controls, in sync with Zed both ways.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Context at a glance:</strong> a ring shows how full the context window is; tap for tokens and cost.</span></li>
           </ul>
         </div>
         <div class="stage stage-pair reveal">
           <div class="phone phone-sm"><div class="phone-screen">{{shot slash "Slash command menu in the afk composer"}}</div></div>
-          <div class="phone phone-sm"><div class="phone-screen">{{shot model "Model picker in afk: Opus, Sonnet, Haiku"}}</div></div>
+          <div class="phone phone-sm"><div class="phone-screen">{{shot model "The This thread sheet in afk: mode, model, effort, Fast mode, approve everything and context usage"}}</div></div>
         </div>
       </article>
 
-      <article class="feature is-flipped">
+      <article class="feature is-flipped" id="themes">
+        <div class="feature-copy">
+          <span class="label reveal">Themes</span>
+          <h3 class="h2 h2-sm reveal">Your Zed theme. Or ours.</h3>
+          <p class="lead reveal">afk starts in its own calm, neutral theme. One tap matches the theme you use in Zed, and it follows when you change it.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Match Zed:</strong> light and dark, read straight from your Mac, extension themes included.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Ten popular themes:</strong> One, Catppuccin, Ayu, Gruvbox, Tokyo Night, Rosé Pine, GitHub, Solarized, Nord, Dracula.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Make it comfortable:</strong> text size, code font, density, and whether thinking starts open.</span></li>
+          </ul>
+        </div>
+        <div class="stage stage-pair reveal">
+          <div class="phone phone-sm"><div class="phone-screen">{{shot appearance "afk Appearance settings: theme cards, mode, text size, code font and density"}}</div></div>
+          <figure class="theme-cycle">
+            <div class="phone phone-sm" data-theme-cycle aria-label="The same thread in different themes" style="--sb-bg: #1A1B26; --sb-fg: #ffffff">
+              <div class="phone-screen">
+                <picture class="is-on" data-name="Tokyo Night" data-sb="#1A1B26" data-sbfg="#ffffff"><source type="image/avif" srcset="/assets/shots/theme-tokyonight-dark-sm.avif 462w, /assets/shots/theme-tokyonight-dark.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-tokyonight-dark-sm.webp" srcset="/assets/shots/theme-tokyonight-dark-sm.webp 462w, /assets/shots/theme-tokyonight-dark.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the Tokyo Night theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+                <picture data-name="Catppuccin Latte" data-sb="#E6E9EF" data-sbfg="#111315"><source type="image/avif" srcset="/assets/shots/theme-catppuccin-light-sm.avif 462w, /assets/shots/theme-catppuccin-light.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-catppuccin-light-sm.webp" srcset="/assets/shots/theme-catppuccin-light-sm.webp 462w, /assets/shots/theme-catppuccin-light.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the Catppuccin Latte theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+                <picture data-name="Gruvbox Dark" data-sb="#282828" data-sbfg="#ffffff"><source type="image/avif" srcset="/assets/shots/theme-gruvbox-dark-sm.avif 462w, /assets/shots/theme-gruvbox-dark.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-gruvbox-dark-sm.webp" srcset="/assets/shots/theme-gruvbox-dark-sm.webp 462w, /assets/shots/theme-gruvbox-dark.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the Gruvbox Dark theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+                <picture data-name="Rosé Pine Dawn" data-sb="#FFFAF3" data-sbfg="#111315"><source type="image/avif" srcset="/assets/shots/theme-rosepine-light-sm.avif 462w, /assets/shots/theme-rosepine-light.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-rosepine-light-sm.webp" srcset="/assets/shots/theme-rosepine-light-sm.webp 462w, /assets/shots/theme-rosepine-light.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the Rosé Pine Dawn theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+                <picture data-name="GitHub Dark" data-sb="#0D1117" data-sbfg="#ffffff"><source type="image/avif" srcset="/assets/shots/theme-github-dark-sm.avif 462w, /assets/shots/theme-github-dark.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-github-dark-sm.webp" srcset="/assets/shots/theme-github-dark-sm.webp 462w, /assets/shots/theme-github-dark.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the GitHub Dark theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+                <picture data-name="Ayu Light" data-sb="#F8F9FA" data-sbfg="#111315"><source type="image/avif" srcset="/assets/shots/theme-ayu-light-sm.avif 462w, /assets/shots/theme-ayu-light.avif 924w" sizes="(min-width: 900px) 240px, 45vw"><img src="/assets/shots/theme-ayu-light-sm.webp" srcset="/assets/shots/theme-ayu-light-sm.webp 462w, /assets/shots/theme-ayu-light.webp 924w" sizes="(min-width: 900px) 240px, 45vw" alt="A thread in the Ayu Light theme" loading="lazy" decoding="async" width="462" height="1000"></picture>
+              </div>
+            </div>
+            <figcaption class="theme-name" data-theme-name aria-live="off">Tokyo Night</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="feature">
         <div class="feature-copy">
           <span class="label reveal">Review</span>
           <h3 class="h2 h2-sm reveal">See the diff. Ship it.</h3>
@@ -209,13 +243,13 @@
         </div>
       </article>
 
-      <article class="feature">
+      <article class="feature is-flipped">
         <div class="feature-copy">
           <span class="label reveal">Several Macs</span>
           <h3 class="h2 h2-sm reveal">Personal and work. One switch.</h3>
           <p class="lead reveal">Pair the phone with every Mac you code on. See one at a time, and know when the other one needs you.</p>
           <ul class="ticks reveal">
-            <li><svg><use href="#i-tick"/></svg><span><strong>Switcher</strong> at the top, with an "elsewhere" badge.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Switcher</strong> at the top of the home screen, with an "elsewhere" badge.</span></li>
             <li><svg><use href="#i-tick"/></svg><span><strong>Notifications from all of them,</strong> labelled with the Mac's name.</span></li>
           </ul>
         </div>
@@ -224,7 +258,7 @@
         </div>
       </article>
 
-      <article class="feature is-flipped">
+      <article class="feature">
         <div class="feature-copy">
           <span class="label reveal">At a glance</span>
           <h3 class="h2 h2-sm reveal">Know before you unlock.</h3>
@@ -280,6 +314,8 @@
         <div class="cell"><svg><use href="#i-share"/></svg><h3 class="h3">Share into a thread</h3><p>Send a link, text or screenshot from any app straight to an agent.</p></div>
         <div class="cell"><svg><use href="#i-search"/></svg><h3 class="h3">Find, rename, archive</h3><p>Search inside a thread; tidy your list with a swipe.</p></div>
         <div class="cell"><svg><use href="#i-update"/></svg><h3 class="h3">Continue here</h3><p>Pick up a thread that isn't open in Zed. Zed shows the new turns later.</p></div>
+        <div class="cell"><svg><use href="#i-bell"/></svg><h3 class="h3">Test notifications</h3><p>Turn them on from Settings and send yourself a test, straight from your Mac.</p></div>
+        <div class="cell"><svg><use href="#i-lock"/></svg><h3 class="h3">Fingerprint lock</h3><p>Optional, and only after the app has been idle for a while.</p></div>
       </div>
     </div>
   </section>

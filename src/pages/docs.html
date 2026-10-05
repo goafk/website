@@ -14,6 +14,7 @@
         <a class="chip" href="#android">The app</a>
         <a class="chip" href="#pair">Pair</a>
         <a class="chip" href="#macs">Several Macs</a>
+        <a class="chip" href="#appearance">Themes</a>
         <a class="chip" href="#commands">Commands</a>
         <a class="chip" href="#troubleshooting">Troubleshooting</a>
         <a class="chip" href="#uninstall">Uninstall</a>
@@ -51,7 +52,16 @@
       <p>Codes work once and expire after 15 minutes. Each phone gets its own key; the Mac's master key never leaves the Mac.</p>
 
       <h2 id="macs">Several Macs</h2>
-      <p>Install afk on each Mac, then in the app tap the Mac's name at the top of the sidebar → <strong>Add a Mac</strong> and scan that Mac's code. The switcher shows one Mac at a time and badges the others when they need you. Rename Macs from the same sheet.</p>
+      <p>Install afk on each Mac, then in the app tap the Mac's name at the top of the home screen → <strong>Add a Mac</strong> and scan that Mac's code (or <strong>Settings → Computers → Add a computer</strong>). The switcher shows one Mac at a time and badges the others when they need you. Rename Macs from the same sheet.</p>
+
+      <h2 id="appearance">Themes and appearance</h2>
+      <p>afk starts in its own theme. In <strong>Settings → Appearance</strong> you can pick:</p>
+      <ul>
+        <li><strong>Match Zed:</strong> uses the theme set in Zed (light and dark), including themes from extensions, and follows when you change it.</li>
+        <li><strong>A popular theme:</strong> One, Catppuccin, Ayu, Gruvbox, Tokyo Night, Rosé Pine, GitHub, Solarized, Nord or Dracula.</li>
+        <li><strong>Mode, text size, code font and density,</strong> and whether the agent's thinking starts expanded.</li>
+      </ul>
+      <p>Settings are kept on the phone. Match Zed needs a current hub: if the app says the hub is too old, run the install command again on the Mac.</p>
 
       <h2 id="commands">Commands</h2>
       <table>
@@ -76,6 +86,8 @@
       <p>Make sure the Mac is awake. At home, the phone must be on the same Wi-Fi; away, Tailscale must be on for both. Run <code>afk setup</code> again: it reports which addresses work.</p>
       <h3>A thread shows as read-only</h3>
       <p>Its agent process isn't running. Open the thread in Zed, or tap <strong>Continue here</strong> in the app to load it into a running agent.</p>
+      <h3>I don't get notifications</h3>
+      <p>Open <strong>Settings → Notifications</strong>. If permission is off, tap <strong>Allow</strong> (or <strong>Open settings</strong> if the system won't ask again). Then tap <strong>Send a test notification</strong>: it goes from your Mac through the same path as real ones, so if the test arrives, everything works.</p>
       <h3>"Tailscale Serve could not start"</h3>
       <p>Tailscale asks you once to enable HTTPS / Serve for your tailnet. Follow the link setup prints, then run setup again.</p>
       <h3>New threads from the phone don't open</h3>

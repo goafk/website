@@ -80,6 +80,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    initThemeCycle();
     applyPref(readPref());
     var toggle = document.querySelector(".theme-toggle");
     if (toggle)
@@ -709,5 +710,41 @@
       { threshold: 0.4 },
     );
     io.observe(pre);
+  }
+
+  /* Themes section: crossfade the phone through a few themes while it's on screen. */
+  function initThemeCycle() {
+    var phone = document.querySelector("[data-theme-cycle]");
+    if (!phone) return;
+    var pics = phone.querySelectorAll("picture");
+    var label = document.querySelector("[data-theme-name]");
+    var i = 0;
+    var timer = null;
+    function show(n) {
+      pics[i].classList.remove("is-on");
+      i = n % pics.length;
+      var p = pics[i];
+      p.classList.add("is-on");
+      phone.style.setProperty("--sb-bg", p.getAttribute("data-sb"));
+      phone.style.setProperty("--sb-fg", p.getAttribute("data-sbfg"));
+      if (label) label.textContent = p.getAttribute("data-name");
+    }
+    // Reduced motion: no autoplay; tapping the phone steps through themes instead.
+    phone.addEventListener("click", function () {
+      show(i + 1);
+    });
+    if (reduce || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !timer) {
+          timer = setInterval(function () {
+            show(i + 1);
+          }, 2200);
+        } else if (!e.isIntersecting && timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      });
+    }, { threshold: 0.4 }).observe(phone);
   }
 })();
