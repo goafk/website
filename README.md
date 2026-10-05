@@ -20,6 +20,10 @@ Append `?static` to any URL to turn off motion (handy for screenshots).
 
 ## Deploy (Cloudflare Pages)
 
+**Live:** https://goafk.dev (Pages project `goafk`, account "the Cloudflare account"). Deploy from
+this folder with `npm run deploy` (wrangler, logged in via `npx wrangler login`). The KV namespace for
+sign-ups is already bound in `wrangler.toml`.
+
 1. Cloudflare dashboard → Workers & Pages → Create → Pages → **Connect to Git** → `goafk/website`.
 2. Build command `node build.mjs`, build output directory `dist`. No environment variables.
 3. Custom domains → add `goafk.dev` (and `www.goafk.dev` → redirect to the apex). With the domain on
