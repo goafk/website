@@ -31,10 +31,19 @@ for (const file of fs.readdirSync(path.join(root, "src/pages"))) {
   // Partials may include other partials and use the page's meta.
   for (let i = 0; i < 4; i++) html = html.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => partials[n] ?? `<!-- missing partial ${n} -->`);
   html = html.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, k) => (k === "url" ? SITE + meta.path : k === "year" ? String(new Date().getFullYear()) : (meta[k] ?? "")));
-  // {{shot name "alt" [eager]}} → the dark + light screenshot, 1x/2x, sized for layout.
+  // {{shot name "alt" [eager]}} → the dark + light screenshot (AVIF with WebP fallback, 1x/2x).
   html = html.replace(/\{\{shot ([\w-]+) "([^"]*)"( eager)?\}\}/g, (_, n, alt, eager) =>
     ["dark", "light"]
-      .map((t) => `<img class="shot-${t}" src="/assets/shots/${n}-${t}-sm.webp" srcset="/assets/shots/${n}-${t}-sm.webp 462w, /assets/shots/${n}-${t}.webp 924w" sizes="(min-width: 960px) 340px, 78vw" width="924" height="2000" alt="${alt}" decoding="async"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}>`)
+      .map((t) => {
+        const base = `/assets/shots/${n}-${t}`;
+        const sizes = 'sizes="(min-width: 960px) 340px, 78vw"';
+        return (
+          `<picture class="shot-${t}">` +
+          `<source type="image/avif" srcset="${base}-sm.avif 462w, ${base}.avif 924w" ${sizes}>` +
+          `<img src="${base}-sm.webp" srcset="${base}-sm.webp 462w, ${base}.webp 924w" ${sizes} width="924" height="2000" alt="${alt}" decoding="async"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}>` +
+          `</picture>`
+        );
+      })
       .join(""),
   );
   html = html.split('<div class="phone-screen">').join('<div class="phone-screen"><span class="sb-icons" aria-hidden="true"></span>');

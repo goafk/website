@@ -22,12 +22,12 @@
           <a class="btn btn-ghost" href="/docs/#android" aria-label="Android APK download">
             <svg><use href="#i-download"/></svg>Android APK
           </a>
-          <span class="btn btn-ghost" aria-disabled="true">
+          <a class="btn btn-ghost" href="#notify" aria-label="Google Play Soon, get notified">
             <svg><use href="#i-play"/></svg>Google Play <span class="soon">Soon</span>
-          </span>
-          <span class="btn btn-ghost" aria-disabled="true">
+          </a>
+          <a class="btn btn-ghost" href="#notify" aria-label="App Store Soon, get notified">
             <svg><use href="#i-apple"/></svg>App Store <span class="soon">Soon</span>
-          </span>
+          </a>
         </div>
         <div class="hero-meta reveal" style="--d: 200ms">
           <span>Claude Agent &amp; Codex</span><span>No fork of Zed</span><span>Your code stays on your Mac</span>
@@ -40,6 +40,7 @@
             <div class="scene" data-scene="live">{{shot thread-live "afk showing a live Claude thread: plan, diff and a table, with two queued messages" eager}}</div>
             <div class="scene is-hidden" data-scene="permission">{{shot thread-permission "afk showing a permission request with Always allow, Allow and Reject"}}</div>
             <div class="scene is-hidden" data-scene="done">{{shot thread-done "afk showing a finished thread with quick replies"}}</div>
+            <button class="hotspot" type="button" data-hotspot aria-label="Allow (try the demo)" tabindex="-1"></button>
             <div class="notif" data-notif aria-hidden="true">
               <span class="notif-icon"><svg viewBox="0 0 654.6 587.2"><use href="#afk-mark"/></svg></span>
               <span class="notif-app">afk · now</span>
@@ -48,7 +49,73 @@
             </div>
           </div>
         </div>
+        <p class="hero-hint" data-hero-hint aria-hidden="true">Try it: tap <strong>Allow</strong></p>
       </div>
+    </div>
+  </section>
+
+  <!-- Live sync demo -->
+  <section class="section" id="sync" aria-labelledby="sync-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">Two-way, in real time</span>
+        <h2 class="h2 reveal" id="sync-title">Tap on your phone. Zed already knows.</h2>
+        <p class="lead reveal">Messages, approvals and settings sync both ways the moment they happen. Try it: tap <strong>Allow</strong> on the phone, send a quick reply, or switch the model.</p>
+      </div>
+      <div class="sync reveal" data-sync aria-label="Interactive demo: a desktop editor and the afk app staying in sync">
+        <div class="win" aria-label="Your Mac">
+          <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span>aurora-ui</span></div>
+          <div class="win-body">
+            <aside class="win-side" aria-hidden="true">
+              <div class="side-h">Threads</div>
+              <div class="side-row is-active"><span class="st st-run" data-st="ed"></span><span>Add dark mode to settings</span></div>
+              <div class="side-row"><span class="st st-done"></span><span>Fix flaky checkout test</span></div>
+              <div class="side-row"><span class="st"></span><span>Audit buttons for a11y</span></div>
+              <div class="side-row"><span class="st"></span><span>CSV import for statements</span></div>
+            </aside>
+            <div class="panel">
+              <div class="panel-h"><span>Add dark mode to settings</span><span class="agent-chip">Claude Agent</span></div>
+              <div class="msgs" data-msgs="ed"></div>
+              <div class="composer">
+                <div class="comp-input" aria-hidden="true">Message the agent — @ for context, / for commands</div>
+                <div class="comp-row">
+                  <button class="model" type="button" data-model aria-label="Model">Opus 5.5 <svg viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <span class="send-sq" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wire" aria-hidden="true"><span class="wire-line"></span><span class="wire-dot" data-wire></span></div>
+
+        <div class="phone phone-demo" aria-label="The afk app">
+          <div class="phone-screen">
+            <div class="app">
+              <div class="app-h"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Add dark mode to settings</span></div>
+              <div class="msgs" data-msgs="ph"></div>
+              <div class="app-comp">
+                <div class="chips">
+                  <button type="button" class="qchip" data-quick="Run the tests">Run the tests</button>
+                  <button type="button" class="qchip" data-quick="Continue">Continue</button>
+                </div>
+                <div class="app-input" data-input><span data-typed></span><span class="ph-caret"></span><span class="ph-placeholder">Message Claude Agent</span></div>
+                <div class="comp-row">
+                  <button class="model" type="button" data-model aria-label="Model">Opus 5.5 <svg viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <span class="send-sq" data-send aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 12.5v-9M4.5 7 8 3.5 11.5 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+              </div>
+            </div>
+            <div class="notif" data-sync-notif aria-hidden="true">
+              <span class="notif-icon"><svg viewBox="0 0 654.6 587.2"><use href="#afk-mark"/></svg></span>
+              <span class="notif-app">afk · now</span>
+              <span class="notif-title">aurora-ui · Add dark mode</span>
+              <span class="notif-body">Permission needed: npm test -- theme</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sync-caption reveal"><span class="sync-dot" aria-hidden="true"></span><span data-sync-caption>Live: the agent is working on your Mac.</span></p>
     </div>
   </section>
 
@@ -156,6 +223,46 @@
           <div class="phone phone-md"><div class="phone-screen">{{shot macs "The afk Mac switcher with Work MacBook and Personal"}}</div></div>
         </div>
       </article>
+
+      <article class="feature is-flipped">
+        <div class="feature-copy">
+          <span class="label reveal">At a glance</span>
+          <h3 class="h2 h2-sm reveal">Know before you unlock.</h3>
+          <p class="lead reveal">Home-screen widgets show what needs you and what's running, and start a new thread in one tap.</p>
+          <ul class="ticks reveal">
+            <li><svg><use href="#i-tick"/></svg><span><strong>Four widgets:</strong> the thread list, a large list, a "needs you" counter and Quick start.</span></li>
+            <li><svg><use href="#i-tick"/></svg><span><strong>Live:</strong> they update as your agents work, in light and dark.</span></li>
+          </ul>
+        </div>
+        <div class="stage reveal">
+          <div class="phone phone-md phone-home" aria-label="Android home screen with afk widgets">
+            <div class="phone-screen">
+              <div class="home">
+                <div class="wd wd-list">
+                  <div class="wd-head"><svg viewBox="0 0 654.6 587.2" aria-hidden="true"><use href="#afk-mark"/></svg><b>Zed agents</b><span class="wd-pill wd-warn">2 need you</span><span class="wd-pill">1 running</span></div>
+                  <div class="wd-row"><span class="wd-ico wd-warn">!</span><span><span class="wd-t">Migrate payments to the new API</span><span class="wd-s">pocket-ledger · needs you · 1m</span></span></div>
+                  <div class="wd-row"><span class="wd-ico wd-acc">✓</span><span><span class="wd-t">Fix flaky checkout e2e test</span><span class="wd-s">aurora-ui · finished · 6m</span></span></div>
+                  <div class="wd-btn">+1 more · Open inbox</div>
+                </div>
+                <div class="wd wd-count">
+                  <div class="wd-head wd-head-sm"><svg viewBox="0 0 654.6 587.2" aria-hidden="true"><use href="#afk-mark"/></svg><b>afk</b></div>
+                  <span class="wd-n">2</span>
+                  <span class="wd-l">need you</span>
+                  <span class="wd-s">1 running</span>
+                </div>
+                <div class="icons" aria-hidden="true">
+                  <span class="ico ico-afk"><svg viewBox="0 0 654.6 587.2"><use href="#afk-mark"/></svg></span><span class="ico"></span><span class="ico"></span><span class="ico"></span>
+                </div>
+                <div class="wd wd-quick">
+                  <b class="wd-new"><svg viewBox="0 0 654.6 587.2" aria-hidden="true"><use href="#afk-mark"/></svg>New</b>
+                  <span class="wd-chip">aurora-ui</span><span class="wd-chip">pocket-ledger</span>
+                </div>
+                <div class="dock" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -242,9 +349,10 @@
           <span class="chip"><svg><use href="#i-network"/></svg>Tailscale optional</span>
         </div>
       </div>
-      <div class="term reveal" style="--d: 80ms">
+      <figure class="term reveal" style="--d: 80ms">
+        <figcaption class="sr-only">Example output of the afk installer</figcaption>
         <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>Terminal</span></div>
-        <pre data-term aria-label="Example output of the afk installer"><span class="p">$</span> curl -fsSL https://goafk.dev/install.sh | sh
+        <pre data-term><span class="p">$</span> curl -fsSL https://goafk.dev/install.sh | sh
 <span class="dim">==&gt;</span> Installing afk into ~/.afk
 <span class="dim">==&gt;</span> Running setup
 
@@ -258,7 +366,33 @@ Setting up afk
 
 Scan with your phone's camera (or in the afk app → Add a Mac):
 <img class="qr" src="/assets/qr.svg" alt="" width="116" height="116">Pairing code K7MQ2-XR4TB · valid 15 min, one phone</pre>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Notify -->
+  <section class="section" id="notify" aria-labelledby="notify-title">
+    <div class="wrap notify">
+      <div class="section-head" style="margin-bottom: 0">
+        <span class="label reveal">Mobile app</span>
+        <h2 class="h2 reveal" id="notify-title">Coming to the App Store and Google Play.</h2>
+        <p class="lead reveal">Get one email when afk lands in the stores. No newsletter, no spam.</p>
       </div>
+      <form class="notify-form reveal" data-notify novalidate>
+        <div class="field">
+          <label class="sr-only" for="notify-email">Email</label>
+          <input id="notify-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="btn btn-primary" type="submit">Notify me</button>
+        </div>
+        <fieldset class="plats">
+          <legend class="sr-only">Which phone?</legend>
+          <label class="plat"><input type="checkbox" name="platforms" value="ios" checked><span><svg><use href="#i-apple"/></svg>iPhone</span></label>
+          <label class="plat"><input type="checkbox" name="platforms" value="android" checked><span><svg><use href="#i-play"/></svg>Android</span></label>
+        </fieldset>
+        <div class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+        <p class="notify-status" data-notify-status role="status" aria-live="polite"></p>
+        <p class="notify-fine">We keep your email only to send that one message. <a href="/privacy/#launch-emails">Privacy</a>.</p>
+      </form>
     </div>
   </section>
 
@@ -286,7 +420,7 @@ Scan with your phone's camera (or in the afk app → Add a Mac):
   <!-- CTA -->
   <section class="section">
     <div class="wrap cta">
-      <svg class="cta-mark reveal" viewBox="0 0 654.6 587.2" aria-hidden="true"><use href="#afk-mark"/></svg>
+      <svg class="cta-mark mark-anim reveal" viewBox="403 288.8 654.6 587.2" aria-hidden="true"><circle cx="528" cy="751" r="125" fill="#8C929A"/><path fill="currentColor" d="M567 426 A95 95 0 0 1 729 328 L1049 855 Q1062 876 1037 876 L888 876 Q840 876 812 830 Z"/></svg>
       <h2 class="h2 reveal">Step away. Keep them moving.</h2>
       <div class="cmd reveal">
         <span class="cmd-prompt" aria-hidden="true">$</span>

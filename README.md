@@ -48,3 +48,28 @@ scripts/sync-install.sh ../afk     # copies ../afk/install.sh → static/install
   to `/docs/#android`.
 - **Brand**: colours, type and motion tokens are at the top of `static/assets/css/site.css`
   and mirror `afk-branding.json`.
+
+## "Notify me" sign-ups (Pages Function + KV)
+
+`functions/api/notify.js` stores sign-ups in a KV namespace bound as `NOTIFY`. One-time setup:
+
+```sh
+npx wrangler kv namespace create NOTIFY            # prints an id
+```
+
+Then in Cloudflare → Workers & Pages → goafk → Settings → Bindings → add **KV namespace**,
+variable name `NOTIFY`, the namespace above (for Production and Preview). Until it's bound, the form
+answers "Sign-ups open very soon".
+
+Export the list when the app ships:
+
+```sh
+npx wrangler kv key list --namespace-id <id> --prefix email: | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).map(k=>k.name.slice(6)).join("\n")))'
+```
+
+Local test with the function: `node build.mjs && npx wrangler pages dev dist --kv NOTIFY`.
+
+## Analytics
+
+Cloudflare → Workers & Pages → goafk → Metrics → **Web Analytics → Enable**. It's cookieless; the CSP
+in `static/_headers` already allows its script, and the privacy page mentions it.

@@ -35,6 +35,8 @@
     d.classList.remove("no-js");
     try { p = localStorage.getItem("afk-theme"); } catch (e) {}
     if (p === "light" || p === "dark") { d.dataset.theme = p; d.dataset.themePref = p; }
+    // The logo animates once per visit: dot first, then the bar, then the wordmark.
+    try { if (!sessionStorage.getItem("afk-logo")) { d.classList.add("play-logo"); sessionStorage.setItem("afk-logo", "1"); } } catch (e) {}
   })();
 </script>
 <link rel="stylesheet" href="/assets/css/site.css">
