@@ -49,7 +49,7 @@ for (const file of fs.readdirSync(path.join(root, "src/pages"))) {
   html = html.split('<div class="phone-screen">').join('<div class="phone-screen"><span class="sb-icons" aria-hidden="true"></span>');
   for (const [a, h] of Object.entries(assets)) html = html.split(a).join(`${a}?v=${h}`);
   // Screenshots are cached for a year: version each URL by its content, so new shots show up at once.
-  html = html.replace(/\/assets\/shots\/[\w.-]+\.(?:webp|avif|png)/g, (u) => `${u}?v=${hash(u.slice(1))}`);
+  html = html.replace(/\/assets\/(?:shots|film)\/[\w.-]+\.(?:webp|avif|png|jpg|mp4)/g, (u) => `${u}?v=${hash(u.slice(1))}`);
   const dest = file === "index.html" || file === "404.html" ? file : path.join(file.replace(/\.html$/, ""), "index.html");
   fs.mkdirSync(path.dirname(path.join(out, dest)), { recursive: true });
   fs.writeFileSync(path.join(out, dest), html);

@@ -177,6 +177,7 @@
     }
 
     hero();
+    film();
     terminal();
     syncDemo();
     notifyForm();
@@ -618,6 +619,60 @@
 
   // Hero: the agent works → asks for permission (notification) → you allow → it finishes.
   // While the permission screen shows, "Allow" is a real button.
+  // The film: muted autoplay while on screen (never with reduced motion), tall cut on phones,
+  // and a sound button that restarts it with sound.
+  function film() {
+    var box = document.querySelector("[data-film]");
+    if (!box) return;
+    var v = box.querySelector("video");
+    var btn = box.querySelector("[data-film-sound]");
+    var label = box.querySelector("[data-film-sound-label]");
+    var tall = window.matchMedia("(max-width: 640px)").matches;
+    v.poster = v.getAttribute(tall ? "data-tall-poster" : "data-wide-poster");
+    v.src = v.getAttribute(tall ? "data-tall" : "data-wide");
+    if (reduce) {
+      v.controls = true;
+      box.classList.add("is-native");
+      return;
+    }
+    v.preload = "metadata";
+    var visible = false;
+    var play = function () {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(
+        function (entries) {
+          visible = entries[0].isIntersecting;
+          if (visible) play();
+          else v.pause();
+        },
+        { threshold: 0.35 },
+      ).observe(v);
+    }
+    btn.addEventListener("click", function () {
+      var on = v.muted;
+      v.muted = !on;
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      label.textContent = on ? "Sound off" : "Sound on";
+      if (on) {
+        v.currentTime = 0;
+        play();
+      }
+      track("film-sound", { on: on });
+    });
+    v.addEventListener("play", function once() {
+      track("film-play", { tall: tall });
+      v.removeEventListener("play", once);
+    });
+    document.querySelectorAll("[data-film-link]").forEach(function (a) {
+      a.addEventListener("click", function () {
+        track("film-link", {});
+      });
+    });
+  }
+
   function hero() {
     var phone = document.querySelector("[data-hero]");
     if (!phone || reduce) return;

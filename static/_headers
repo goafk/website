@@ -15,6 +15,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /assets/shots/*
   Cache-Control: public, max-age=31536000, immutable
+/assets/film/*
+  Cache-Control: public, max-age=31536000, immutable
 /assets/css/*
   Cache-Control: public, max-age=31536000, immutable
 /assets/js/*

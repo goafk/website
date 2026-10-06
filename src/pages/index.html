@@ -29,6 +29,7 @@
             <svg><use href="#i-apple"/></svg>App Store <span class="soon">Soon</span>
           </a>
         </div>
+        <a class="film-link reveal" style="--d: 180ms" href="#film" data-film-link><span class="film-link-icon"><svg><use href="#i-film"/></svg></span>Watch the 35-second film</a>
         <div class="hero-meta reveal" style="--d: 200ms">
           <span>Claude Agent &amp; Codex</span><span>No fork of Zed</span><span>Your code stays on your Mac</span>
         </div>
@@ -50,6 +51,25 @@
           </div>
         </div>
         <p class="hero-hint" data-hero-hint aria-hidden="true">Try it: tap <strong>Allow</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The film -->
+  <section class="section film-section" id="film" aria-labelledby="film-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label reveal">The 35-second version</span>
+        <h2 class="h2 reveal" id="film-title">See it in motion.</h2>
+      </div>
+      <div class="film reveal" data-film>
+        <video class="film-video" muted loop playsinline preload="none" poster="/assets/film/poster.jpg"
+          data-wide="/assets/film/afk-film.mp4" data-wide-poster="/assets/film/poster.jpg"
+          data-tall="/assets/film/afk-film-vertical.mp4" data-tall-poster="/assets/film/poster-vertical.jpg"
+          aria-label="A 35-second film: a Zed agent asks for permission, the phone gets the notification, you tap Allow, then a tour of the afk app"></video>
+        <button class="film-sound" type="button" data-film-sound aria-pressed="false">
+          <svg class="i-on"><use href="#i-sound"/></svg><svg class="i-off"><use href="#i-mute"/></svg><span data-film-sound-label>Sound on</span>
+        </button>
       </div>
     </div>
   </section>

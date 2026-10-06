@@ -2965,3 +2965,102 @@ a.chip:active {
   background: var(--sunken);
   font-size: 15px;
 }
+
+/* ---------- the film ---------- */
+.film-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+.film-link-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 99px;
+  background: var(--invert-bg);
+  color: var(--invert-text);
+  transition: transform var(--t-fast) var(--ease);
+}
+.film-link-icon svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-link:hover .film-link-icon {
+    transform: scale(1.06);
+  }
+}
+.film-link:active .film-link-icon {
+  transform: scale(0.96);
+}
+.film {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #030405;
+  box-shadow: var(--card-shadow), var(--shadow-phone);
+}
+.film-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.film-sound {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 99px;
+  background: rgba(10, 11, 13, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font: 500 13px/1 var(--font);
+  cursor: pointer;
+  transition-property: background-color, transform;
+  transition-duration: var(--t-fast);
+  transition-timing-function: var(--ease);
+}
+.film-sound svg {
+  width: 18px;
+  height: 18px;
+}
+.film-sound .i-on,
+.film-sound[aria-pressed="true"] .i-off {
+  display: none;
+}
+.film-sound[aria-pressed="true"] .i-on {
+  display: block;
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-sound:hover {
+    background: rgba(10, 11, 13, 0.8);
+  }
+}
+.film-sound:active {
+  transform: scale(0.96);
+}
+.film.is-native .film-sound {
+  display: none;
+}
+@media (max-width: 640px) {
+  .film {
+    aspect-ratio: 9 / 16;
+    width: min(100%, calc(82svh * 9 / 16));
+    margin: 0 auto;
+  }
+}
